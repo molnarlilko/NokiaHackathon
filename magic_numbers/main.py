@@ -16,3 +16,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+def next_magic_num(n):
+    s = str(n)
+    length = len(s)
+    half = length // 2
+
