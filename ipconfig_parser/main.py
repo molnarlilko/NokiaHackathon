@@ -1,9 +1,26 @@
+import json
 from pathlib import Path
 
 
 def main():
-    for path in sorted(Path(".").glob("*.txt")):
-        print(path.name)
+    input_files = ["parser_input_a.txt", "parser_input_b.txt"]
+    output = []
+
+    for filename in input_files:
+        file = Path(filename)
+        if not file.exists():
+            continue
+
+        text = file.read_text(encoding="utf-8", errors="ignore")
+        adapters = parse_ipconfig_text(text)
+
+        output.append({
+            "file_name": filename,
+            "adapters": adapters
+        })
+
+    with open("output.json", "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
 
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
 from pathlib import Path
 
+
 def next_magic_num(n):
     s = str(n)
     length = len(s)
