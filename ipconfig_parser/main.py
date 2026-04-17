@@ -27,7 +27,7 @@ def parse_ipconfig_text(text):
                 adapters.append(current)
 
             current = {
-                "adapter_name": line[:-1],   # A ":" nélkül
+                "adapter_name": line[:-1],   
                 "description": "",
                 "physical_address": "",
                 "dhcp_enabled": "",
