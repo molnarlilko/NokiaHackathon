@@ -29,3 +29,5 @@ if length % 2 == 0:
         left_part = s[:half+1]
         first_try = left_part + left_part[:-1][::-1]
 
+    if int(first_try) > n:
+        return int(first_try)
