@@ -22,7 +22,7 @@ def next_magic_num(n):
     length = len(s)
     half = length // 2
 
-if length % 2 == 0:
+    if length % 2 == 0:
         left_part = s[:half]
         first_try = left_part + left_part[::-1]
     else:
@@ -38,3 +38,8 @@ if length % 2 == 0:
         second_try = added_to_left + added_to_left[::-1]
     else:
         second_try = added_to_left + added_to_left[:-1][::-1]
+
+    if len(added_to_left) > len(left_part):
+        return int("1" + ("0" * (length - 1)) + "1")
+
+    return int(second_try)
