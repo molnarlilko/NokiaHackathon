@@ -39,7 +39,62 @@ def parse_line(line: str):
     arrival_str = parts[1] + " " + parts[2]
     departure_str = parts[3] + " " + parts[4]
 
-   
+    try:
+        arrival = datetime.strptime(arrival_str, "%Y-%m-%d %H:%M:%S")
+        departure = datetime.strptime(departure_str, "%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        return {
+            "plate": plate,
+            "fee": "HIBAS DATUM"
+        }
+
+    delta = departure - arrival
+    total_minutes = int(delta.total_seconds() // 60)
+
+    if total_minutes < 0:
+        return {
+            "plate": plate,
+            "fee": "HIBAS IDOREND"
+        }
+
+    fee = calculate_parking_fee(total_minutes)
+
+    return {
+        "plate": plate,
+        "fee": fee
+    }
+
+
+def process_parking_file(input_path: str, output_path: str):
+    in_file = Path(input_path)
+    if not in_file.exists():
+        print(f"Nem található a bemeneti fájl: {input_path}")
+        return
+
+    lines = in_file.read_text(encoding="utf-8", errors="ignore").splitlines()
+
+    results = []
+
+    for line in lines:
+        if "RENDSZAM" in line and "ERKEZES" in line and "TAVOZAS" in line:
+            continue
+        if set(line.strip()) == {"="}:
+            continue
+
+        parsed = parse_line(line)
+        if parsed:
+            results.append(parsed)
+
+    out_lines = []
+    out_lines.append("RENDSZÁM\tDÍJ")
+
+    for r in results:
+        plate = r["plate"]
+        fee = r["fee"]
+        out_lines.append(f"{plate}\t{fee}")
+
+    Path(output_path).write_text("\n".join(out_lines), encoding="utf-8")
+    print(f"Eredmény kiírva ide: {output_path}")
 
 
 if __name__ == "__main__":
