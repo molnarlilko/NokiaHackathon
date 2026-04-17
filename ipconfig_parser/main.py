@@ -2,6 +2,17 @@ import json
 from pathlib import Path
 
 
+FIELDS = {
+    "description": "Description",
+    "physical_address": "Physical Address",
+    "dhcp_enabled": "DHCP Enabled",
+    "ipv4_address": "IPv4 Address",
+    "subnet_mask": "Subnet Mask",
+    "default_gateway": "Default Gateway",
+    "dns_servers": "DNS Servers"
+}
+
+
 def main():
     input_files = ["parser_input_a.txt", "parser_input_b.txt"]
     output = []
