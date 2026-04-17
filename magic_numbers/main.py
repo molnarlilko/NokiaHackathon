@@ -31,3 +31,10 @@ if length % 2 == 0:
 
     if int(first_try) > n:
         return int(first_try)
+
+    added_to_left = str(int(left_part) + 1)
+
+    if length % 2 == 0:
+        second_try = added_to_left + added_to_left[::-1]
+    else:
+        second_try = added_to_left + added_to_left[:-1][::-1]
