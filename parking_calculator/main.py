@@ -72,7 +72,6 @@ def process_parking_file(input_path: str, output_path: str):
         return
 
     lines = in_file.read_text(encoding="utf-8", errors="ignore").splitlines()
-
     results = []
 
     for line in lines:
@@ -86,16 +85,12 @@ def process_parking_file(input_path: str, output_path: str):
             results.append(parsed)
 
     out_lines = []
-    out_lines.append("RENDSZÁM\tDÍJ")
 
     for r in results:
         plate = r["plate"]
         fee = r["fee"]
-        out_lines.append(f"{plate}\t{fee}")
+        out_lines.append(f"{plate} → {fee} forint")
 
     Path(output_path).write_text("\n".join(out_lines), encoding="utf-8")
     print(f"Eredmény kiírva ide: {output_path}")
 
-
-if __name__ == "__main__":
-    process_parking_file("parking_input.txt", "parking_output.txt")
