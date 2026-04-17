@@ -1,16 +1,10 @@
 from pathlib import Path
 
 def main():
-    lines = Path("input.txt").read_text(encoding="utf-8").splitlines()
-
-    for line in lines:
+    for line in Path("input.txt").read_text(encoding="utf-8").splitlines():
         line = line.strip()
 
-        if "^" in line:
-            base, exp = line.split("^")
-            n = int(base) ** int(exp)
-        else:
-            n = int(line)
+        n = int(line.split("^")[0]) ** int(line.split("^")[1]) if "^" in line else int(line)
 
         print(next_magic_num(n))
 
@@ -43,3 +37,4 @@ def next_magic_num(n):
         return int("1" + ("0" * (length - 1)) + "1")
 
     return int(second_try)
+    
