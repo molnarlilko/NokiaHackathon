@@ -67,7 +67,7 @@ def main():
         minutes = (exit_ - entry).total_seconds() / 60
         results.append(f"{plate}\t\t{calculate_fee(minutes)}")
  
-    out = "RENDSZÁM\tDÍJ\n" + "\n".join(results)
+    out = "RENDSZAM\tDIJ\n" + "\n".join(results)
     print(out)
     Path("output.txt").write_text(out + "\n", encoding="utf-8")
 
